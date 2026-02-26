@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "labo-frontier-algorithms"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Contributors"
+    given-names: "labo-frontier-algorithms"
+repository-code: "https://github.com/<your-org>/labo-frontier-algorithms"
+license: "Apache-2.0"
+version: "0.1.0"
+date-released: "2026-02-26"
+abstract: "Reproducible baseline implementations for frontier audio algorithms (SSL, ANC) with experiments."
