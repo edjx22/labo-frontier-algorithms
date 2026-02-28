@@ -25,8 +25,8 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.command == "run_ssl_demo":
-        output_path = run_ssl_demo(args.outdir)
-        print(f"Saved demo figure to: {output_path}")
+        output_dir = run_ssl_demo(args.outdir)
+        print(f"Saved demo outputs to: {output_dir}")
         return
 
     parser.print_help()

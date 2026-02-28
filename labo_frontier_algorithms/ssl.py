@@ -42,6 +42,13 @@ def gcc_phat(
     return tau, cc_shifted
 
 
+def gcc_phat_lags(cc: FloatArray, fs: int, interp: int = 16) -> FloatArray:
+    """Return lag axis in seconds for a GCC-PHAT cross-correlation curve."""
+    max_shift = (cc.shape[0] - 1) // 2
+    lag_idx = np.arange(-max_shift, max_shift + 1, dtype=np.float64)
+    return lag_idx / float(interp * fs)
+
+
 def estimate_angle_from_tdoa(tdoa_s: float, mic_distance_m: float, c: float = 343.0) -> float:
     """Estimate azimuth angle in degrees from TDOA."""
     arg = np.clip((tdoa_s * c) / mic_distance_m, -1.0, 1.0)

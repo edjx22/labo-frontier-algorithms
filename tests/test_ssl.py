@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 import numpy as np
+from numpy.typing import NDArray
 
 from labo_frontier_algorithms.signal import fractional_delay, generate_two_mic_sine
-from labo_frontier_algorithms.ssl import estimate_angle_from_tdoa, gcc_phat
+from labo_frontier_algorithms.ssl import estimate_angle_from_tdoa, gcc_phat, gcc_phat_lags
+
+FloatArray = NDArray[np.float64]
 
 
 def test_fractional_delay_preserves_shape() -> None:
-    x = np.linspace(0, 1, 200)
+    x: FloatArray = np.linspace(0.0, 1.0, 200, dtype=np.float64)
     y = fractional_delay(x, 2.75)
     assert y.shape == x.shape
 
@@ -30,3 +33,22 @@ def test_gcc_phat_estimates_tdoa_close_to_true() -> None:
 def test_estimate_angle_from_tdoa_is_reasonable() -> None:
     angle = estimate_angle_from_tdoa(6.0e-5, mic_distance_m=0.08)
     assert 10.0 < angle < 20.0
+
+
+def test_gcc_phat_peak_lag_is_within_reasonable_range() -> None:
+    fs = 16000
+    interp = 16
+    x1, x2, true_tdoa = generate_two_mic_sine(
+        fs=fs,
+        duration_s=0.1,
+        freq_hz=800.0,
+        mic_distance_m=0.08,
+        angle_deg=30.0,
+        snr_db=20.0,
+        seed=42,
+    )
+    _, cc = gcc_phat(x2, x1, fs=fs, max_tau=0.08 / 343.0, interp=interp)
+    lags = gcc_phat_lags(cc, fs=fs, interp=interp)
+    peak_lag = float(lags[int(np.argmax(np.abs(cc)))])
+
+    assert abs(peak_lag - true_tdoa) < 5.0e-5
