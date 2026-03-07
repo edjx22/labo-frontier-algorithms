@@ -92,6 +92,25 @@ pytest
 
 CI runs lint + type check + tests on Python 3.10/3.11/3.12.
 
+## Demo Output
+
+Synthetic two-microphone example using GCC-PHAT.
+
+### Waveforms
+![Waveforms](docs/assets/waveforms.png)
+
+### Cross-correlation
+![GCC-PHAT](docs/assets/xcorr.png)
+
+Example result:
+
+```json
+{
+  "true_angle_deg": 30,
+  "est_angle_deg": 31.28,
+  "abs_error_deg": 1.28
+}
+
 ## Roadmap
 
 - Add broadband and chirp-based SSL synthetic benchmarks.
