@@ -46,6 +46,10 @@ The demo generates the following outputs:
 * `out/xcorr.png`
 * `out/result.json`
 
+Detailed guide:
+
+* [`docs/ssl_demo_guide.md`](docs/ssl_demo_guide.md) — GCC-PHAT explanation, plot interpretation, and usage examples
+
 ---
 
 # Example Output
